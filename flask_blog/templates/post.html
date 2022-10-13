@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+	    <div class="article-metadata">
+	      <small class="text-muted">{{ post.date_posted}}</small>
+	    </div>
+	    <div>
+	      <table>
+		    <thead>
+		        <td><h2><a class="article-title">{{ post.title }}</a></h2></td>
+		        <td><img class="article-img" src="{{ url_for('static', filename='posts/' + post.image_file) }}" width="300" height="200"></td>
+		    </thead>
+		     <tr>
+		        <td></td>
+		        <td><p class="article-content">{{ post.content}}</p></td>
+		      </tr>
+		  </table>
+		</div>
+    </div>
+    <div class="link-to-update">
+        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update', post_id=post.id) }}">Update</a> 
+        <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
+            <input class="btn btn-danger btn-sm m-1" type="submit" value="Delete">
+        </form>
+    </div>
+</article>
+{% endblock content %}

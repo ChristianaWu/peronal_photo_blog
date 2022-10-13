@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% for post in posts.items %} 
+      <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <small class="text-muted">{{ post.date_posted}}</small>
+            </div>
+            <div>
+              <table>
+                <thead>
+                    <td><h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2></td>
+                    <td></td>
+                </thead>
+                 <tr>
+                    <td><img class="article-img" src="{{ url_for('static', filename='posts/' + post.image_file) }}" width="300" height="200"></td>
+                    <td><p class="article-content">{{ post.content}}</p></td>
+                  </tr>
+              </table>
+            </div>
+          </div>
+      </article>
+  {% endfor %}
+  {% for num in posts.iter_pages() %} 
+    {% if num %}
+        {% if posts.page == num %}
+        <!-- This will limit the number of tpages  -->
+          <a class="btn btn-info btn-sm mb-4" href="{{ url_for('home', page=num) }}">{{ num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info btn-sm mb-4" href="{{ url_for('home', page=num) }}">{{ num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+  {% endfor %}
+{% endblock content %}      
